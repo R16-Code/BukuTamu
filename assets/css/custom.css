@@ -1,0 +1,389 @@
+/* ===================================
+   CUSTOM STYLES - PROFESSIONAL THEME
+   Color Scheme: Red, Yellow, Blue, White
+   =================================== */
+
+:root {
+    --color-primary: #2563eb;      /* Blue */
+    --color-secondary: #dc2626;    /* Red */
+    --color-accent: #f59e0b;       /* Yellow/Amber */
+    --color-success: #16a34a;      /* Green for success states */
+    --color-dark: #1e293b;         /* Dark slate */
+    --color-light: #f8fafc;        /* Off white */
+}
+
+/* Signature Canvas */
+.signature-canvas {
+    border: 2px dashed #cbd5e1;
+    border-radius: 0.5rem;
+    background-color: #ffffff;
+    cursor: crosshair;
+    touch-action: none;
+    transition: border-color 0.3s ease;
+}
+
+.signature-canvas:hover {
+    border-color: var(--color-primary);
+}
+
+.signature-canvas.has-signature {
+    border-color: var(--color-success);
+    border-style: solid;
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Alert Animation */
+.alert-slide-in {
+    animation: slideInDown 0.3s ease-out;
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Card Hover Effect */
+.card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+/* Smooth Transitions */
+* {
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+/* Mobile Responsive Adjustments */
+@media (max-width: 640px) {
+    .signature-canvas {
+        min-height: 180px;
+    }
+}
+
+/* Status Badge */
+.badge-success {
+    background-color: var(--color-success);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.badge-warning {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.badge-danger {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.badge-primary {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+/* Table Responsive */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Gradient Backgrounds */
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #1e40af 100%);
+}
+
+.bg-gradient-secondary {
+    background: linear-gradient(135deg, var(--color-secondary) 0%, #991b1b 100%);
+}
+
+.bg-gradient-accent {
+    background: linear-gradient(135deg, var(--color-accent) 0%, #d97706 100%);
+}
+
+/* Professional Input Focus */
+input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Stats Card Gradient */
+.stats-card-blue {
+    background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.stats-card-red {
+    background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+}
+
+.stats-card-yellow {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+/* Professional Shadow */
+.shadow-professional {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.shadow-professional-lg {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* ===================================
+   RESPONSIVE DESIGN - MOBILE FIRST
+   =================================== */
+
+/* Custom Select/Dropdown Styling */
+.custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1.25rem;
+    padding-right: 2.5rem;
+}
+
+.custom-select:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Identity Lainnya Input Animation */
+.identity-other-input {
+    transition: all 0.3s ease;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    margin-top: 0;
+}
+
+.identity-other-input.show {
+    max-height: 100px;
+    opacity: 1;
+    margin-top: 1rem;
+}
+
+/* Extra Small Devices (Phones, less than 480px) */
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    
+    .max-w-4xl, .max-w-7xl {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+    
+    /* Header/Navbar adjustments */
+    h1 {
+        font-size: 1.25rem !important;
+    }
+    
+    h2 {
+        font-size: 1.125rem !important;
+    }
+    
+    /* Form inputs for touch */
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    input[type="date"],
+    textarea,
+    select {
+        font-size: 16px !important; /* Prevents zoom on iOS */
+        padding: 0.875rem 1rem;
+    }
+    
+    /* Buttons for touch */
+    button, .btn, [type="submit"] {
+        min-height: 48px;
+        font-size: 1rem;
+    }
+    
+    /* Signature canvas */
+    .signature-canvas {
+        min-height: 150px;
+    }
+    
+    /* Cards */
+    .rounded-2xl {
+        border-radius: 1rem;
+    }
+    
+    /* Grid adjustments */
+    .grid-cols-2 {
+        grid-template-columns: 1fr !important;
+    }
+    
+    /* Table on mobile - horizontal scroll */
+    .table-responsive {
+        margin: 0 -1rem;
+        padding: 0 1rem;
+    }
+    
+    table {
+        font-size: 0.75rem;
+    }
+    
+    th, td {
+        padding: 0.5rem !important;
+        white-space: nowrap;
+    }
+}
+
+/* Small Devices (Tablets Portrait, 481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    h1 {
+        font-size: 1.5rem !important;
+    }
+    
+    h2 {
+        font-size: 1.25rem !important;
+    }
+    
+    /* Form inputs */
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    textarea,
+    select {
+        font-size: 16px !important;
+        padding: 0.75rem 1rem;
+    }
+    
+    .signature-canvas {
+        min-height: 180px;
+    }
+    
+    /* Statistics cards grid */
+    .grid.md\\:grid-cols-3 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Medium Devices (Tablets Landscape, 769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .max-w-4xl {
+        max-width: 90%;
+    }
+    
+    .signature-canvas {
+        min-height: 200px;
+    }
+}
+
+/* Touch Device Improvements */
+@media (hover: none) and (pointer: coarse) {
+    /* Larger tap targets */
+    a, button, input, select, textarea {
+        min-height: 44px;
+    }
+    
+    /* Remove hover effects that don't work on touch */
+    .card-hover:hover {
+        transform: none;
+    }
+    
+    /* Better touch feedback */
+    button:active, a:active {
+        opacity: 0.8;
+        transform: scale(0.98);
+    }
+}
+
+/* Print Styles */
+@media print {
+    .shadow-professional,
+    .shadow-professional-lg {
+        box-shadow: none !important;
+    }
+    
+    button, .btn {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+    }
+}
+
+/* Landscape Orientation on Mobile */
+@media (max-width: 768px) and (orientation: landscape) {
+    .signature-canvas {
+        min-height: 120px;
+    }
+    
+    .py-8 {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+    }
+}
+
+/* Dark Mode Support (optional - follows system preference) */
+@media (prefers-color-scheme: dark) {
+    /* Uncomment to enable dark mode
+    :root {
+        --color-dark: #f8fafc;
+        --color-light: #1e293b;
+    }
+    
+    body {
+        background-color: #0f172a;
+        color: #f1f5f9;
+    }
+    */
+}
+
+/* Reduced Motion for Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
