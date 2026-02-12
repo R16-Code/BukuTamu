@@ -171,8 +171,11 @@ require_once __DIR__ . '/includes/functions.php';
         </div>
 
         <!-- Footer -->
-        <div class="text-center mt-8 text-gray-600 text-sm">
+        <div class="text-center mt-8 text-gray-600 text-sm space-y-2">
             <p>&copy; 2026 <?php echo APP_NAME; ?> - Version <?php echo APP_VERSION; ?></p>
+            <a href="admin/login.php" class="inline-block text-xs text-gray-400 hover:text-blue-600 border border-gray-200 hover:border-blue-400 hover:bg-blue-50 px-3 py-1 rounded-full transition duration-200">
+                Login Admin
+            </a>
         </div>
     </div>
 

@@ -307,9 +307,9 @@ foreach ($visits as $visit) {
                                 </td>
                                 <td class="px-4 py-3 whitespace-nowrap">
                                     <?php if ($visit['status'] === 'MASUK'): ?>
-                                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">Active</span>
+                                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">Aktif</span>
                                     <?php else: ?>
-                                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 border border-gray-200">Done</span>
+                                        <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 border border-gray-200">Selesai</span>
                                     <?php endif; ?>
                                 </td>
                                 <!-- TTD Column - Signature Status -->

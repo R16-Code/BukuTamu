@@ -7,7 +7,7 @@ if (!function_exists('isActive')) {
     }
 }
 ?>
-<div class="bg-white shadow-professional-lg rounded-2xl p-6 mb-8 relative overflow-hidden">
+<div class="bg-white shadow-professional-lg rounded-2xl p-6 mb-8 relative">
     <!-- Decorative Background Element -->
     <div class="absolute top-0 right-0 -mt-4 -mr-4 w-24 h-24 bg-gradient-to-br from-blue-500 to-green-500 opacity-10 rounded-full blur-xl"></div>
     
@@ -33,7 +33,7 @@ if (!function_exists('isActive')) {
         </a>
 
         <!-- Navigation Actions -->
-        <div class="flex flex-nowrap gap-2 md:gap-3 justify-center md:justify-end">
+        <div class="flex flex-nowrap gap-2 md:gap-3 items-center justify-center md:justify-end">
             <a href="index.php" 
                class="px-2.5 md:px-4 py-2 md:py-2.5 rounded-lg font-medium transition duration-200 flex items-center justify-center text-gray-600 hover:bg-gray-100 hover:text-gray-900 border border-gray-200"
                title="Kembali ke Halaman Utama">
@@ -58,3 +58,4 @@ if (!function_exists('isActive')) {
         </div>
     </div>
 </div>
+

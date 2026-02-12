@@ -216,11 +216,11 @@ $stats = getVisitStats($today);
                                     <td class="px-4 py-3 whitespace-nowrap">
                                         <?php if ($visit['status'] === 'MASUK'): ?>
                                             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">
-                                                Active
+                                                Aktif
                                             </span>
                                         <?php else: ?>
                                             <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 border border-gray-200">
-                                                Done
+                                                Selesai
                                             </span>
                                         <?php endif; ?>
                                     </td>

@@ -56,11 +56,9 @@ require_once __DIR__ . '/config/config.php';
                 <div class="w-24 h-1 bg-gradient-to-r from-blue-500 via-yellow-500 to-red-500 mx-auto mt-6 rounded-full"></div>
             </div>
 
-            <!-- Selection Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-                
-                <!-- Guest Card -->
-                <a href="guest_entry.php" class="group bg-white rounded-2xl p-8 shadow-xl border border-gray-100 card-hover relative overflow-hidden text-center cursor-pointer">
+            <!-- Entry Card -->
+            <div class="max-w-lg mx-auto">
+                <a href="guest_entry.php" class="group bg-white rounded-2xl p-10 shadow-xl border border-gray-100 card-hover relative overflow-hidden text-center cursor-pointer block">
                     <div class="absolute inset-0 bg-blue-50 opacity-0 group-hover:opacity-100 transition duration-300"></div>
                     <div class="relative z-10">
                         <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-blue-600 transition duration-300">
@@ -70,7 +68,7 @@ require_once __DIR__ . '/config/config.php';
                         </div>
                         <h2 class="text-2xl font-bold text-gray-900 mb-2">Tamu / Pengunjung</h2>
                         <p class="text-gray-500 mb-6">Isi buku tamu untuk keperluan kunjungan dinas atau umum.</p>
-                        <span class="inline-flex items-center text-blue-600 font-semibold group-hover:translate-x-1 transition duration-200">
+                        <span class="inline-flex items-center justify-center w-full bg-blue-600 text-white py-3 rounded-lg font-semibold group-hover:bg-blue-700 transition duration-200">
                             Masuk sebagai Tamu
                             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -78,34 +76,16 @@ require_once __DIR__ . '/config/config.php';
                         </span>
                     </div>
                 </a>
-
-                <!-- Admin Card -->
-                <a href="admin/login.php" class="group bg-white rounded-2xl p-8 shadow-xl border border-gray-100 card-hover relative overflow-hidden text-center cursor-pointer">
-                    <div class="absolute inset-0 bg-red-50 opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                    <div class="relative z-10">
-                        <div class="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-red-600 transition duration-300">
-                            <svg class="w-10 h-10 text-red-600 group-hover:text-white transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                            </svg>
-                        </div>
-                        <h2 class="text-2xl font-bold text-gray-900 mb-2">Administrator</h2>
-                        <p class="text-gray-500 mb-6">Login untuk mengelola data tamu dan laporan.</p>
-                        <span class="inline-flex items-center text-red-600 font-semibold group-hover:translate-x-1 transition duration-200">
-                            Masuk sebagai Admin
-                            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </span>
-                    </div>
-                </a>
-
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <div class="text-center py-6 text-gray-500 text-sm relative z-10">
+    <div class="text-center py-6 text-gray-500 text-sm relative z-10 space-y-2">
         <p>&copy; <?php echo date('Y'); ?> <?php echo APP_NAME; ?>. All rights reserved.</p>
+        <a href="admin/login.php" class="inline-block text-xs text-gray-400 hover:text-blue-600 border border-gray-200 hover:border-blue-400 hover:bg-blue-50 px-3 py-1 rounded-full transition duration-200">
+            Login Admin
+        </a>
     </div>
 
 </body>
