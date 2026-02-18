@@ -93,6 +93,8 @@ header("Expires: 0");
         td { padding: 8px; border: 1px solid #000000; vertical-align: top; }
         .center { text-align: center; }
         .bg-gray { background-color: #f2f2f2; }
+        /* Force Excel to treat as text - prevents scientific notation & preserves leading zeros */
+        .text-cell { mso-number-format:"\@"; }
     </style>
 </head>
 <body>
@@ -128,8 +130,8 @@ header("Expires: 0");
                 <td><?php echo e($visit['nama']); ?></td>
                 <td><?php echo e($visit['fungsi']); ?></td>
                 <td><?php echo e($visit['asal']); ?></td>
-                <td><?php echo !empty($visit['no_pek']) ? e($visit['no_pek']) : '-'; ?></td>
-                <td><?php echo e($visit['nomor_identitas']); ?></td>
+                <td class="text-cell"><?php echo !empty($visit['no_pek']) ? e($visit['no_pek']) : '-'; ?></td>
+                <td class="text-cell"><?php echo e($visit['nomor_identitas']); ?></td>
                 <td><?php echo e($visit['keperluan']); ?></td>
                 <td class="center"><?php echo formatTime($visit['jam_masuk']); ?></td>
                 <td class="center"><?php echo $visit['jam_keluar'] ? formatTime($visit['jam_keluar']) : '-'; ?></td>
