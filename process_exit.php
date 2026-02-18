@@ -59,9 +59,7 @@ try {
         [
             'jam_keluar' => date('Y-m-d H:i:s'),
             'tanda_tangan_keluar' => $signatureRelativePath,
-            'status' => 'SELESAI',
-            'is_flagged' => 0,  // Clear flag if exists
-            'flag_note' => null  // Clear flag note
+            'status' => 'SELESAI'
         ],
         'id = :id',
         ['id' => $visitId]

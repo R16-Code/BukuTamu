@@ -8,28 +8,43 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 }
 
 try {
-    // Validate required fields
-    if (empty($_POST['nomor_identitas'])) {
-        jsonResponse(false, 'Nomor identitas wajib diisi!');
+    $noPek = isset($_POST['no_pek']) ? trim($_POST['no_pek']) : '';
+    $nomorIdentitas = isset($_POST['nomor_identitas']) ? trim($_POST['nomor_identitas']) : '';
+    
+    if (empty($_POST['no_pek']) || empty($_POST['nomor_identitas'])) {
+        jsonResponse(false, 'NO.PEK/NIK/SIM/PASPORT dan NO. ID CARD wajib diisi!');
     }
     
-    $nomorIdentitas = trim($_POST['nomor_identitas']);
     $today = date('Y-m-d');
+    $visit = null;
     
-    // Find active entry for today
+    // Search by no_pek first (priority), fallback to nomor_identitas
+    // Priority 1: Search by no_pek
     $sql = "SELECT * FROM visits 
-            WHERE nomor_identitas = :identity 
+            WHERE no_pek = :no_pek 
             AND visit_date = :date 
             AND status = 'MASUK'
             LIMIT 1";
-    
     $visit = getRow($sql, [
-        'identity' => $nomorIdentitas,
+        'no_pek' => $noPek,
         'date' => $today
     ]);
     
+    // Priority 2: If not found by no_pek, try nomor_identitas
     if (!$visit) {
-        jsonResponse(false, 'Data kunjungan tidak ditemukan. Pastikan Anda sudah absen masuk hari ini dan menggunakan nomor identitas yang sama.');
+        $sql = "SELECT * FROM visits 
+                WHERE nomor_identitas = :identity 
+                AND visit_date = :date 
+                AND status = 'MASUK'
+                LIMIT 1";
+        $visit = getRow($sql, [
+            'identity' => $nomorIdentitas,
+            'date' => $today
+        ]);
+    }
+    
+    if (!$visit) {
+        jsonResponse(false, 'Data kunjungan tidak ditemukan. Pastikan NO.PEK atau NO. ID CARD sesuai data saat absen masuk hari ini.');
     }
     
     // Format data for response
@@ -39,6 +54,8 @@ try {
         'asal' => $visit['asal'],
         'fungsi' => $visit['fungsi'],
         'jenis_identitas' => $visit['jenis_identitas'],
+        'no_pek' => $visit['no_pek'] ?? null,
+        'nomor_identitas' => $visit['nomor_identitas'],
         'keperluan' => $visit['keperluan'],
         'jam_masuk' => $visit['jam_masuk'],
         'jam_masuk_formatted' => formatTime($visit['jam_masuk']),

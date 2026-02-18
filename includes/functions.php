@@ -88,19 +88,19 @@ function formatTime($datetime) {
 /**
  * Check if identity already has active entry today
  *
- * @param string $identity Nomor identitas
+ * @param string $noPek NO.PEK/NIK/SIM/PASPORT
  * @param string $date Date in Y-m-d format
  * @return array|false Return row if exists, false if not
  */
-function checkDuplicateEntry($identity, $date) {
+function checkDuplicateEntry($noPek, $date) {
     $sql = "SELECT * FROM visits 
-            WHERE nomor_identitas = :identity 
+            WHERE no_pek = :no_pek 
             AND visit_date = :date 
             AND status = 'MASUK'
             LIMIT 1";
     
     return getRow($sql, [
-        'identity' => $identity,
+        'no_pek' => $noPek,
         'date' => $date
     ]);
 }

@@ -13,12 +13,13 @@ USE bukutamu;
 -- ===================================
 CREATE TABLE IF NOT EXISTS visits (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nomor_identitas VARCHAR(50) NOT NULL COMMENT 'NIK atau Nomor ID Card',
+    nomor_identitas VARCHAR(50) NOT NULL COMMENT 'NO. ID CARD',
+    no_pek VARCHAR(100) NULL COMMENT 'NO.PEK/NIK/SIM/PASSPORT',
     visit_date DATE NOT NULL COMMENT 'Tanggal kunjungan',
     nama VARCHAR(100) NOT NULL COMMENT 'Nama pengunjung',
-    asal VARCHAR(200) NOT NULL COMMENT 'Asal/alamat pengunjung',
-    fungsi VARCHAR(100) NOT NULL COMMENT 'Fungsi (tamu/magang/dll)',
-    jenis_identitas ENUM('KTP', 'ID_CARD') NOT NULL COMMENT 'Jenis identitas',
+    asal VARCHAR(200) NOT NULL COMMENT 'Alamat pengunjung',
+    fungsi VARCHAR(100) NOT NULL COMMENT 'Asal Fungsi',
+    jenis_identitas ENUM('KTP', 'KTM', 'SIM', 'PASPORT', 'ID_CARD') NOT NULL COMMENT 'Jenis identitas',
     keperluan TEXT NOT NULL COMMENT 'Keperluan kunjungan',
     jam_masuk DATETIME NOT NULL COMMENT 'Waktu masuk otomatis',
     tanda_tangan_masuk TEXT NOT NULL COMMENT 'Canvas signature base64',

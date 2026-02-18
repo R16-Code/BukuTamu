@@ -127,19 +127,7 @@ $stats = getVisitStats($today);
             
             <!-- Sidebar / Quick Actions -->
             <div class="space-y-6">
-                <!-- Auto Flag Card -->
-                <div class="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl shadow-lg p-6 text-white text-center">
-                    <div class="w-16 h-16 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                        </svg>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Auto Checkout</h3>
-                    <p class="text-orange-100 text-sm mb-6">Flag manual untuk tamu yang lupa checkout hari ini.</p>
-                    <button onclick="runAutoFlag()" class="w-full py-2.5 bg-white text-orange-600 rounded-lg font-semibold hover:bg-orange-50 transition shadow-sm">
-                        Jalankan Sekarang
-                    </button>
-                </div>
+
 
                 <!-- Info Card -->
                  <div class="bg-white rounded-2xl shadow-professional p-6">
@@ -179,8 +167,9 @@ $stats = getVisitStats($today);
                         <table class="min-w-full divide-y divide-gray-100">
                             <thead class="bg-gray-50">
                                 <tr>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Nama / Asal</th>
-                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Fungsi</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Nama</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Alamat</th>
+                                    <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Asal Fungsi</th>
                                     <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Keperluan</th>
                                     <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Masuk</th>
                                     <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Keluar</th>
@@ -191,15 +180,10 @@ $stats = getVisitStats($today);
                                 <?php foreach ($recentVisits as $visit): ?>
                                 <tr class="hover:bg-gray-50 transition">
                                     <td class="px-4 py-3 whitespace-nowrap">
-                                        <div class="flex items-center">
-                                            <div class="flex-shrink-0 h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs">
-                                                <?php echo strtoupper(substr($visit['nama'], 0, 1)); ?>
-                                            </div>
-                                            <div class="ml-3">
-                                                <div class="text-sm font-medium text-gray-900"><?php echo e($visit['nama']); ?></div>
-                                                <div class="text-xs text-gray-500"><?php echo e($visit['asal']); ?></div>
-                                            </div>
-                                        </div>
+                                        <div class="text-sm font-medium text-gray-900"><?php echo e($visit['nama']); ?></div>
+                                    </td>
+                                    <td class="px-4 py-3 text-sm text-gray-600 max-w-xs">
+                                        <div class="truncate" title="<?php echo e($visit['asal']); ?>"><?php echo e($visit['asal']); ?></div>
                                     </td>
                                     <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-600">
                                         <?php echo e($visit['fungsi']); ?>
@@ -243,30 +227,6 @@ $stats = getVisitStats($today);
 
     </div>
 
-    <script>
-        async function runAutoFlag() {
-            if (!confirm('Jalankan auto-flag untuk semua kunjungan yang belum checkout hari ini?')) {
-                return;
-            }
-            
-            try {
-                const response = await fetch('../cron/auto_flag.php', {
-                    method: 'POST'
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    alert(result.message);
-                    location.reload();
-                } else {
-                    alert('Error: ' + result.message);
-                }
-            } catch (error) {
-                alert('Terjadi kesalahan saat menjalankan auto-flag.');
-                console.error('Error:', error);
-            }
-        }
-    </script>
+
 </body>
 </html>

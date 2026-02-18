@@ -43,33 +43,23 @@ require_once __DIR__ . '/includes/functions.php';
             
             <form id="searchForm" class="space-y-6">
                 <div>
-                    <label for="jenisIdentitas" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Jenis Identitas <span class="text-red-600">*</span>
+                    <label for="noPek" class="block text-sm font-semibold text-gray-700 mb-2">
+                        NO.PEK/NIK/SIM/PASPORT <span class="text-red-600">*</span>
                     </label>
-                    <select id="jenisIdentitas" name="jenis_identitas" required
-                            class="custom-select w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent bg-white">
-                        <option value="">-- Pilih Jenis Identitas --</option>
-                        <option value="KTP">KTP</option>
-                        <option value="KTM">KTM (Kartu Tanda Mahasiswa)</option>
-                        <option value="ID_CARD">ID Card</option>
-                        <option value="LAINNYA">Lainnya...</option>
-                    </select>
-                    
-                    <!-- Input untuk Jenis Identitas Lainnya -->
-                    <div id="identitasLainnyaContainer" class="mt-3" style="display: none;">
-                        <input type="text" id="jenisIdentitasLainnya" name="jenis_identitas_lainnya"
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                               placeholder="Masukkan jenis identitas yang digunakan">
-                    </div>
+                    <input type="text" id="noPek" name="no_pek" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                           placeholder="Masukkan nomor kartu yang diserahkan saat masuk">
+                    <p class="text-xs text-gray-500 mt-1">Nomor identitas yang diserahkan ke sekuriti (No. Pekerja, NIK, NIM, dll)</p>
                 </div>
 
                 <div>
                     <label for="nomorIdentitas" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Nomor Identitas <span class="text-red-600">*</span>
+                        NO. ID CARD <span class="text-red-600">*</span>
                     </label>
-                    <input type="text" id="nomorIdentitas" name="nomor_identitas" required 
+                    <input type="text" id="nomorIdentitas" name="nomor_identitas" required
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-transparent"
-                           placeholder="Masukkan nomor identitas sesuai jenis identitas yang dipilih">
+                           placeholder="Masukkan nomor ID Card Visitor/Internship">
+                    <p class="text-xs text-gray-500 mt-1">Nomor pada kartu visitor atau internship yang diberikan sekuriti</p>
                 </div>
 
                 <button type="submit" id="searchBtn"
@@ -79,7 +69,7 @@ require_once __DIR__ . '/includes/functions.php';
 
                 <div class="p-4 bg-blue-50 border border-blue-200 rounded-lg">
                     <p class="text-sm text-blue-900">
-                        <strong>Catatan:</strong> Gunakan nomor identitas yang sama dengan saat absen masuk
+                        <strong>Catatan:</strong> Masukkan kedua nomor yang sama dengan saat absen masuk untuk menemukan data kunjungan Anda.
                     </p>
                 </div>
             </form>
@@ -101,11 +91,11 @@ require_once __DIR__ . '/includes/functions.php';
                         <p class="font-semibold text-gray-900" id="displayNama">-</p>
                     </div>
                     <div class="bg-white p-3 rounded-lg">
-                        <p class="text-sm text-gray-600 mb-1">Asal</p>
+                        <p class="text-sm text-gray-600 mb-1">Alamat</p>
                         <p class="font-semibold text-gray-900" id="displayAsal">-</p>
                     </div>
                     <div class="bg-white p-3 rounded-lg">
-                        <p class="text-sm text-gray-600 mb-1">Fungsi</p>
+                        <p class="text-sm text-gray-600 mb-1">Asal Fungsi</p>
                         <p class="font-semibold text-gray-900" id="displayFungsi">-</p>
                     </div>
                     <div class="bg-white p-3 rounded-lg">
@@ -184,22 +174,6 @@ require_once __DIR__ . '/includes/functions.php';
         let isSuccess = false;
         
         document.addEventListener('DOMContentLoaded', function() {
-            // Identity Type Dropdown - Show/Hide "Lainnya" input
-            const identitySelect = document.getElementById('jenisIdentitas');
-            const lainnyaContainer = document.getElementById('identitasLainnyaContainer');
-            const lainnyaInput = document.getElementById('jenisIdentitasLainnya');
-            
-            identitySelect.addEventListener('change', function() {
-                if (this.value === 'LAINNYA') {
-                    lainnyaContainer.style.display = 'block';
-                    lainnyaInput.required = true;
-                } else {
-                    lainnyaContainer.style.display = 'none';
-                    lainnyaInput.required = false;
-                    lainnyaInput.value = '';
-                }
-            });
-
             // Modal button handler
             document.getElementById('modalButton').addEventListener('click', function() {
                 closeModal();
@@ -221,9 +195,11 @@ require_once __DIR__ . '/includes/functions.php';
             document.getElementById('searchForm').addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
-                // Validate "Lainnya" input if selected
-                if (identitySelect.value === 'LAINNYA' && !lainnyaInput.value.trim()) {
-                    showModal('error', 'Validasi Gagal', 'Silakan isi jenis identitas yang digunakan!');
+                // Validate both fields are filled
+                const noPek = document.getElementById('noPek').value.trim();
+                const nomorIdentitas = document.getElementById('nomorIdentitas').value.trim();
+                if (!noPek || !nomorIdentitas) {
+                    showModal('error', 'Validasi Gagal', 'NO.PEK dan NO. ID CARD wajib diisi!');
                     return;
                 }
                 

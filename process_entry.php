@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 try {
     // Validate required fields
-    $required = ['tanggal', 'nama', 'asal', 'fungsi', 'jenis_identitas', 'nomor_identitas', 'keperluan', 'tanda_tangan'];
+    $required = ['tanggal', 'nama', 'asal', 'fungsi', 'jenis_identitas', 'nomor_identitas', 'no_pek', 'keperluan', 'tanda_tangan'];
     foreach ($required as $field) {
         if (empty($_POST[$field])) {
             jsonResponse(false, "Field {$field} wajib diisi!");
@@ -23,6 +23,7 @@ try {
     $fungsi = trim($_POST['fungsi']);
     $jenisIdentitas = $_POST['jenis_identitas'];
     $nomorIdentitas = trim($_POST['nomor_identitas']);
+    $noPek = isset($_POST['no_pek']) ? trim($_POST['no_pek']) : null;
     $keperluan = trim($_POST['keperluan']);
     $tandaTangan = $_POST['tanda_tangan'];
     $keterangan = isset($_POST['keterangan']) ? trim($_POST['keterangan']) : null;
@@ -36,7 +37,7 @@ try {
     }
     
     // Validate jenis identitas
-    $validIdentitas = ['KTP', 'KTM', 'ID_CARD'];
+    $validIdentitas = ['KTP', 'KTM', 'SIM', 'PASPORT', 'ID_CARD'];
     if (!in_array($jenisIdentitas, $validIdentitas) && empty($_POST['jenis_identitas_lainnya'])) {
         // If not in valid list and not custom, reject
         if (!in_array($_POST['jenis_identitas'], array_merge($validIdentitas, ['LAINNYA']))) {
@@ -49,10 +50,10 @@ try {
         jsonResponse(false, 'Format tanda tangan tidak valid!');
     }
     
-    // Check duplicate entry (same identity, same date, status MASUK)
-    $duplicate = checkDuplicateEntry($nomorIdentitas, $tanggal);
+    // Check duplicate entry (same no_pek, same date, status MASUK)
+    $duplicate = checkDuplicateEntry($noPek, $tanggal);
     if ($duplicate) {
-        jsonResponse(false, 'Anda sudah absen masuk hari ini. Silakan absen keluar jika sudah selesai.');
+        jsonResponse(false, 'Anda sudah absen masuk hari ini dengan NO.PEK/NIK yang sama. Silakan absen keluar jika sudah selesai.');
     }
     
     // Save signature as file
@@ -77,6 +78,7 @@ try {
     // Insert visitor entry
     $visitData = [
         'nomor_identitas' => $nomorIdentitas,
+        'no_pek' => $noPek,
         'visit_date' => $tanggal,
         'nama' => $nama,
         'asal' => $asal,
@@ -102,5 +104,5 @@ try {
     
 } catch (Exception $e) {
     error_log('Entry Error: ' . $e->getMessage());
-    jsonResponse(false, 'Terjadi kesalahan sistem. Silakan coba lagi.');
+    jsonResponse(false, 'Terjadi kesalahan sistem: ' . $e->getMessage());
 }

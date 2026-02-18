@@ -70,25 +70,24 @@ require_once __DIR__ . '/includes/functions.php';
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <!-- Asal -->
-                    <div>
-                        <label for="asal" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Asal<span class="text-red-600">*</span>
-                        </label>
-                        <input type="text" id="asal" name="asal" required 
-                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                               placeholder="Masukkan asal tempat tinggal">
-                    </div>
-
-                    <!-- Fungsi -->
-                    <!-- Fungsi -->
+                    <!-- Asal Fungsi -->
                     <div>
                         <label for="fungsi" class="block text-sm font-semibold text-gray-700 mb-2">
-                            Instansi / Fungsi <span class="text-red-600">*</span>
+                            Asal Fungsi <span class="text-red-600">*</span>
                         </label>
                         <input type="text" id="fungsi" name="fungsi" required
                                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                                placeholder="Contoh: Universitas / Perusahaan / dll">
+                    </div>
+
+                    <!-- Alamat -->
+                    <div>
+                        <label for="asal" class="block text-sm font-semibold text-gray-700 mb-2">
+                            Alamat <span class="text-red-600">*</span>
+                        </label>
+                        <input type="text" id="asal" name="asal" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                               placeholder="Masukkan alamat">
                     </div>
                 </div>
 
@@ -102,6 +101,8 @@ require_once __DIR__ . '/includes/functions.php';
                         <option value="">-- Pilih Jenis Identitas --</option>
                         <option value="KTP">KTP</option>
                         <option value="KTM">KTM (Kartu Tanda Mahasiswa)</option>
+                        <option value="SIM">SIM</option>
+                        <option value="PASPORT">Pasport</option>
                         <option value="ID_CARD">ID Card</option>
                         <option value="LAINNYA">Lainnya...</option>
                     </select>
@@ -114,15 +115,26 @@ require_once __DIR__ . '/includes/functions.php';
                     </div>
                 </div>
 
-                <!-- Nomor Identitas -->
+                <!-- NO.PEK/NIK/SIM/PASSPORT -->
+                <div>
+                    <label for="noPek" class="block text-sm font-semibold text-gray-700 mb-2">
+                        NO.PEK/NIK/SIM/PASPORT <span class="text-red-600">*</span>
+                    </label>
+                    <input type="text" id="noPek" name="no_pek" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                           placeholder="Masukkan nomor kartu identitas">
+                    <p class="text-xs text-gray-500 mt-1">Nomor dari kartu identitas yang diserahkan ke sekuriti (No. Pekerja, NIK, NIM, dll). Data ini digunakan untuk identifikasi saat absen keluar.</p>
+                </div>
+
+                <!-- NO. ID CARD -->
                 <div>
                     <label for="nomorIdentitas" class="block text-sm font-semibold text-gray-700 mb-2">
-                        Nomor Identitas <span class="text-red-600">*</span>
+                        NO. ID CARD <span class="text-red-600">*</span>
                     </label>
                     <input type="text" id="nomorIdentitas" name="nomor_identitas" required 
                            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                           placeholder="Masukkan nomor identitas sesuai jenis identitas yang dipilih">
-                    <p class="text-xs text-gray-500 mt-1">Data ini digunakan untuk identifikasi saat absen keluar</p>
+                           placeholder="Masukkan nomor id card">
+                    <p class="text-xs text-gray-500 mt-1">Nomor pada kartu visitor atau internship yang diberikan sekuriti. Data ini digunakan untuk identifikasi saat absen keluar.</p>
                 </div>
 
                 <!-- Keperluan -->

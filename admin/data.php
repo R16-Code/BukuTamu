@@ -70,13 +70,7 @@ if (count($whereClauses) > 0) {
 $query = "SELECT * FROM visits {$whereSql} ORDER BY visit_date DESC, jam_masuk DESC";
 $visits = getAll($query, $params);
 
-// Count flagged (belum checkout)
-$flaggedCount = 0;
-foreach ($visits as $visit) {
-    if ($visit['status'] === 'MASUK' || $visit['is_flagged']) {
-        $flaggedCount++;
-    }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="id">
@@ -140,15 +134,7 @@ foreach ($visits as $visit) {
             </div>
         </div>
 
-        <!-- Alert for flagged visitors -->
-        <?php if ($flaggedCount > 0): ?>
-        <div class="bg-orange-50 border-l-4 border-orange-500 text-orange-700 p-4 mb-6 rounded-r-lg shadow-sm flex items-center">
-            <svg class="w-6 h-6 mr-3 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
-            </svg>
-            <p class="font-medium">Peringatan: Ada <?php echo $flaggedCount; ?> pengunjung yang belum checkout atau masa kunjungannya aktif!</p>
-        </div>
-        <?php endif; ?>
+
 
         <!-- Filters & Search -->
         <div class="bg-white rounded-2xl shadow-professional p-4 md:p-6 mb-6">
@@ -258,53 +244,113 @@ foreach ($visits as $visit) {
                     <thead class="bg-gray-50">
                         <tr>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Tanggal</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Identitas</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Asal</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Instansi / Fungsi</th>
-                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Keperluan</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Nama</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Asal Fungsi</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Alamat</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">NO.PEK/NIK/SIM/PASSPORT</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">NO. ID CARD</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Jam Masuk</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Jam Keluar</th>
+                            <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Keperluan</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">TTD Masuk</th>
+                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">TTD Keluar</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                            <th class="px-4 py-3 text-center text-xs font-semibold text-gray-500 uppercase tracking-wider">TTD</th>
                             <th class="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-100">
                         <?php if (count($visits) > 0): ?>
                             <?php foreach ($visits as $visit): ?>
-                            <tr class="hover:bg-gray-50 transition <?php echo $visit['is_flagged'] ? 'bg-orange-50' : ''; ?>">
+                            <tr class="hover:bg-gray-50 transition">
+                                <!-- Tanggal -->
                                 <td class="px-4 py-3 whitespace-nowrap text-sm">
                                     <div class="font-medium text-gray-900"><?php echo formatDate($visit['visit_date']); ?></div>
                                 </td>
+                                <!-- Nama -->
                                 <td class="px-4 py-3 whitespace-nowrap">
-                                    <div class="flex items-center">
-                                        <div class="flex-shrink-0 h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs mr-2">
-                                            <?php echo strtoupper(substr($visit['nama'], 0, 1)); ?>
-                                        </div>
-                                        <div>
-                                            <div class="text-sm font-bold text-gray-900"><?php echo e($visit['nama']); ?></div>
-                                            <div class="text-xs text-gray-500"><?php echo e($visit['jenis_identitas']); ?> - <?php echo e($visit['nomor_identitas']); ?></div>
-                                            <?php if ($visit['is_flagged']): ?>
-                                                <div class="text-xs text-orange-600 font-medium">🚩 Flagged</div>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
+                                    <div class="text-sm font-bold text-gray-900"><?php echo e($visit['nama']); ?></div>
                                 </td>
-                                <td class="px-4 py-3 text-sm text-gray-600 max-w-xs">
-                                    <div class="truncate" title="<?php echo e($visit['asal']); ?>"><?php echo e($visit['asal']); ?></div>
-                                </td>
+                                <!-- Asal Fungsi -->
                                 <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
                                     <?php echo e($visit['fungsi']); ?>
                                 </td>
+                                <!-- Alamat -->
                                 <td class="px-4 py-3 text-sm text-gray-600 max-w-xs">
-                                    <div class="truncate" title="<?php echo e($visit['keperluan']); ?>"><?php echo e($visit['keperluan']); ?></div>
+                                    <div class="truncate" title="<?php echo e($visit['asal']); ?>"><?php echo e($visit['asal']); ?></div>
                                 </td>
+                                <!-- NO.PEK/NIK/SIM/PASSPORT -->
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                                    <?php echo !empty($visit['no_pek']) ? e($visit['no_pek']) : '-'; ?>
+                                </td>
+                                <!-- NO. ID CARD -->
+                                <td class="px-4 py-3 whitespace-nowrap text-sm text-gray-900">
+                                    <?php echo e($visit['nomor_identitas']); ?>
+                                </td>
+                                <!-- Jam Masuk -->
                                 <td class="px-4 py-3 whitespace-nowrap text-sm">
                                     <span class="font-medium text-green-600"><?php echo formatTime($visit['jam_masuk']); ?></span>
                                 </td>
+                                <!-- Jam Keluar -->
                                 <td class="px-4 py-3 whitespace-nowrap text-sm">
                                     <span class="font-medium text-red-600"><?php echo $visit['jam_keluar'] ? formatTime($visit['jam_keluar']) : '-'; ?></span>
                                 </td>
+                                <!-- Keperluan -->
+                                <td class="px-4 py-3 text-sm text-gray-600 max-w-xs">
+                                    <div class="truncate" title="<?php echo e($visit['keperluan']); ?>"><?php echo e($visit['keperluan']); ?></div>
+                                </td>
+                                <!-- TTD Masuk -->
+                                <td class="px-4 py-3 whitespace-nowrap text-center">
+                                    <div class="relative group">
+                                        <?php if (!empty($visit['tanda_tangan_masuk'])): ?>
+                                            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600 cursor-pointer" title="TTD Masuk: Ada">
+                                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </span>
+                                            <div class="hidden group-hover:block absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-2 bg-white rounded-lg shadow-xl border border-gray-200">
+                                                <p class="text-xs text-gray-500 mb-1 whitespace-nowrap">TTD Masuk:</p>
+                                                <?php 
+                                                $ttdMasuk = $visit['tanda_tangan_masuk'];
+                                                $ttdMasukSrc = (strpos($ttdMasuk, 'data:') === 0) ? $ttdMasuk : '../' . $ttdMasuk;
+                                                ?>
+                                                <img src="<?php echo $ttdMasukSrc; ?>" alt="TTD Masuk" class="w-32 h-auto border rounded">
+                                            </div>
+                                        <?php else: ?>
+                                            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 text-red-600" title="TTD Masuk: Tidak ada">
+                                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </span>
+                                        <?php endif; ?>
+                                    </div>
+                                </td>
+                                <!-- TTD Keluar -->
+                                <td class="px-4 py-3 whitespace-nowrap text-center">
+                                    <div class="relative group">
+                                        <?php if (!empty($visit['tanda_tangan_keluar'])): ?>
+                                            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600 cursor-pointer" title="TTD Keluar: Ada">
+                                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </span>
+                                            <div class="hidden group-hover:block absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-2 bg-white rounded-lg shadow-xl border border-gray-200">
+                                                <p class="text-xs text-gray-500 mb-1 whitespace-nowrap">TTD Keluar:</p>
+                                                <?php 
+                                                $ttdKeluar = $visit['tanda_tangan_keluar'];
+                                                $ttdKeluarSrc = (strpos($ttdKeluar, 'data:') === 0) ? $ttdKeluar : '../' . $ttdKeluar;
+                                                ?>
+                                                <img src="<?php echo $ttdKeluarSrc; ?>" alt="TTD Keluar" class="w-32 h-auto border rounded">
+                                            </div>
+                                        <?php else: ?>
+                                            <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 text-gray-400" title="TTD Keluar: Belum">
+                                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                                </svg>
+                                            </span>
+                                        <?php endif; ?>
+                                    </div>
+                                </td>
+                                <!-- Status -->
                                 <td class="px-4 py-3 whitespace-nowrap">
                                     <?php if ($visit['status'] === 'MASUK'): ?>
                                         <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200">Aktif</span>
@@ -312,62 +358,7 @@ foreach ($visits as $visit) {
                                         <span class="px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 border border-gray-200">Selesai</span>
                                     <?php endif; ?>
                                 </td>
-                                <!-- TTD Column - Signature Status -->
-                                <td class="px-4 py-3 whitespace-nowrap text-center">
-                                    <div class="flex items-center justify-center gap-1">
-                                        <!-- Entry Signature -->
-                                        <div class="relative group">
-                                            <?php if (!empty($visit['tanda_tangan_masuk'])): ?>
-                                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600 cursor-pointer" title="TTD Masuk: Ada">
-                                                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                                    </svg>
-                                                </span>
-                                                <!-- Tooltip with signature preview -->
-                                                <div class="hidden group-hover:block absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-2 bg-white rounded-lg shadow-xl border border-gray-200">
-                                                    <p class="text-xs text-gray-500 mb-1 whitespace-nowrap">TTD Masuk:</p>
-                                                    <?php 
-                                                    $ttdMasuk = $visit['tanda_tangan_masuk'];
-                                                    $ttdMasukSrc = (strpos($ttdMasuk, 'data:') === 0) ? $ttdMasuk : '../' . $ttdMasuk;
-                                                    ?>
-                                                    <img src="<?php echo $ttdMasukSrc; ?>" alt="TTD Masuk" class="w-32 h-auto border rounded">
-                                                </div>
-                                            <?php else: ?>
-                                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-red-100 text-red-600" title="TTD Masuk: Tidak ada">
-                                                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                                    </svg>
-                                                </span>
-                                            <?php endif; ?>
-                                        </div>
-                                        <span class="text-gray-300">/</span>
-                                        <!-- Exit Signature -->
-                                        <div class="relative group">
-                                            <?php if (!empty($visit['tanda_tangan_keluar'])): ?>
-                                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-100 text-green-600 cursor-pointer" title="TTD Keluar: Ada">
-                                                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                                                    </svg>
-                                                </span>
-                                                <!-- Tooltip with signature preview -->
-                                                <div class="hidden group-hover:block absolute z-50 bottom-full left-1/2 transform -translate-x-1/2 mb-2 p-2 bg-white rounded-lg shadow-xl border border-gray-200">
-                                                    <p class="text-xs text-gray-500 mb-1 whitespace-nowrap">TTD Keluar:</p>
-                                                    <?php 
-                                                    $ttdKeluar = $visit['tanda_tangan_keluar'];
-                                                    $ttdKeluarSrc = (strpos($ttdKeluar, 'data:') === 0) ? $ttdKeluar : '../' . $ttdKeluar;
-                                                    ?>
-                                                    <img src="<?php echo $ttdKeluarSrc; ?>" alt="TTD Keluar" class="w-32 h-auto border rounded">
-                                                </div>
-                                            <?php else: ?>
-                                                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-gray-100 text-gray-400" title="TTD Keluar: Belum">
-                                                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
-                                                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                                    </svg>
-                                                </span>
-                                            <?php endif; ?>
-                                        </div>
-                                    </div>
-                                </td>
+                                <!-- Aksi -->
                                 <td class="px-4 py-3 whitespace-nowrap text-sm">
                                     <div class="flex items-center gap-1">
                                         <?php if ($visit['status'] === 'MASUK'): ?>
@@ -388,7 +379,7 @@ foreach ($visits as $visit) {
                             <?php endforeach; ?>
                         <?php else: ?>
                             <tr>
-                            <td colspan="10" class="px-6 py-12 text-center">
+                            <td colspan="13" class="px-6 py-12 text-center">
                                     <div class="flex flex-col items-center justify-center">
                                         <svg class="w-12 h-12 text-gray-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>

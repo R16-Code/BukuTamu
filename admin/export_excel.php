@@ -105,9 +105,10 @@ header("Expires: 0");
                 <th width="30">No</th>
                 <th width="100">Tanggal</th>
                 <th width="150">Nama</th>
-                <th width="150">Instansi / Asal</th>
-                <th width="120">Fungsi / Tujuan</th>
-                <th width="100">No. Identitas</th>
+                <th width="120">Asal Fungsi</th>
+                <th width="150">Alamat</th>
+                <th width="120">NO.PEK/NIK/SIM/PASSPORT</th>
+                <th width="100">NO. ID CARD</th>
                 <th width="200">Keperluan</th>
                 <th width="80">Jam Masuk</th>
                 <th width="80">Jam Keluar</th>
@@ -125,16 +126,10 @@ header("Expires: 0");
                 <td class="center"><?php echo $no++; ?></td>
                 <td><?php echo formatDate($visit['visit_date']); ?></td>
                 <td><?php echo e($visit['nama']); ?></td>
-                <td><?php echo e($visit['asal']); ?></td>
                 <td><?php echo e($visit['fungsi']); ?></td>
-                <td>
-                    <?php 
-                    echo e($visit['jenis_identitas']); 
-                    if (!empty($visit['nomor_identitas']) && $visit['nomor_identitas'] !== '-') {
-                        echo '<br>No: ' . e($visit['nomor_identitas']);
-                    }
-                    ?>
-                </td>
+                <td><?php echo e($visit['asal']); ?></td>
+                <td><?php echo !empty($visit['no_pek']) ? e($visit['no_pek']) : '-'; ?></td>
+                <td><?php echo e($visit['nomor_identitas']); ?></td>
                 <td><?php echo e($visit['keperluan']); ?></td>
                 <td class="center"><?php echo formatTime($visit['jam_masuk']); ?></td>
                 <td class="center"><?php echo $visit['jam_keluar'] ? formatTime($visit['jam_keluar']) : '-'; ?></td>
@@ -144,7 +139,6 @@ header("Expires: 0");
                 <td>
                     <?php 
                     $ket = [];
-                    if ($visit['is_flagged']) $ket[] = "Flagged: " . $visit['flag_note'];
                     if (!empty($visit['keterangan']) && $visit['keterangan'] !== '-') $ket[] = $visit['keterangan'];
                     echo empty($ket) ? '-' : implode(', ', $ket);
                     ?>

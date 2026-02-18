@@ -33,9 +33,7 @@ try {
     $updated = update('visits', 
         [
             'jam_keluar' => date('Y-m-d H:i:s'),
-            'status' => 'SELESAI',
-            'is_flagged' => 0,
-            'flag_note' => 'Checkout manual oleh admin'
+            'status' => 'SELESAI'
         ],
         'id = :id',
         ['id' => $visitId]
