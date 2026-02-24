@@ -35,7 +35,7 @@ try {
             WHERE visit_date = :date 
             AND status = 'MASUK'";
     
-    $activeVisits = getRows($sql, ['date' => $today]);
+    $activeVisits = getAll($sql, ['date' => $today]);
     
     $count = count($activeVisits);
     
@@ -56,8 +56,8 @@ try {
             WHERE visit_date = :date 
             AND status = 'MASUK'";
     
-    $db = getDB();
-    $stmt = $db->prepare($sql);
+    global $pdo;
+    $stmt = $pdo->prepare($sql);
     $stmt->execute([
         'checkout_time' => $now,
         'updated_at' => $now,

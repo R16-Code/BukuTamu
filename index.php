@@ -48,11 +48,13 @@ require_once __DIR__ . '/config/config.php';
             
             <!-- Logo & Title -->
             <div class="text-center mb-12 animate-fade-in-up">
-                <img src="https://res.cloudinary.com/drnnwysol/image/upload/v1770018633/logo_j5pwjf.png" 
-                     alt="Pertamina EP Cepu Logo" 
-                     class="h-24 mx-auto mb-6 object-contain">
+                <div class="bg-white p-3 rounded-xl shadow-md border border-gray-100 inline-block mb-6">
+                    <img src="https://res.cloudinary.com/drnnwysol/image/upload/v1771404511/logo-pepc_vlsrf0.png" 
+                         alt="Pertamina EP Cepu Logo" 
+                         class="h-16 w-auto object-contain">
+                </div>
                 <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">Selamat Datang</h1>
-                <p class="text-xl text-gray-600">Sistem Buku Tamu & Manajemen Pengunjung</p>
+                <p class="text-xl text-gray-600">Visitor Log & Management System</p>
                 <div class="w-24 h-1 bg-gradient-to-r from-blue-500 via-yellow-500 to-red-500 mx-auto mt-6 rounded-full"></div>
             </div>
 
@@ -67,7 +69,7 @@ require_once __DIR__ . '/config/config.php';
                             </svg>
                         </div>
                         <h2 class="text-2xl font-bold text-gray-900 mb-2">Tamu / Pengunjung</h2>
-                        <p class="text-gray-500 mb-6">Isi buku tamu untuk keperluan kunjungan dinas atau umum.</p>
+                        <p class="text-gray-500 mb-6">Isi visitor log untuk keperluan kunjungan dinas atau umum.</p>
                         <span class="inline-flex items-center justify-center w-full bg-blue-600 text-white py-3 rounded-lg font-semibold group-hover:bg-blue-700 transition duration-200">
                             Masuk sebagai Tamu
                             <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,7 +85,8 @@ require_once __DIR__ . '/config/config.php';
     <!-- Footer -->
     <div class="text-center py-6 text-gray-500 text-sm relative z-10 space-y-2">
         <p>&copy; <?php echo date('Y'); ?> <?php echo APP_NAME; ?>. All rights reserved.</p>
-        <a href="admin/login.php" class="inline-block text-xs text-gray-400 hover:text-blue-600 border border-gray-200 hover:border-blue-400 hover:bg-blue-50 px-3 py-1 rounded-full transition duration-200">
+        <a href="admin/login.php" class="group inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-white px-4 py-1.5 rounded-full transition-all duration-300 border border-gray-200/60 hover:border-transparent hover:shadow-lg hover:shadow-blue-500/25" style="background: rgba(255,255,255,0.6); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);" onmouseenter="this.style.background='linear-gradient(135deg,#2563eb,#7c3aed)'" onmouseleave="this.style.background='rgba(255,255,255,0.6)'">
+            <svg class="w-3 h-3 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>
             Login Admin
         </a>
     </div>

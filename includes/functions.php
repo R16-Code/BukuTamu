@@ -178,3 +178,74 @@ function validateCSRF($token) {
 function getCSRFToken() {
     return $_SESSION[CSRF_TOKEN_NAME] ?? '';
 }
+
+/**
+ * Auto-checkout pengunjung dari hari-hari sebelumnya yang masih berstatus MASUK.
+ * Fungsi ini dipanggil otomatis setiap kali functions.php di-load (setiap page load).
+ * Aman untuk dipanggil berkali-kali (idempotent).
+ */
+function autoCheckoutPreviousDays() {
+    global $pdo;
+    
+    if (!$pdo) return;
+    
+    try {
+        $today = date('Y-m-d');
+        $now = date('Y-m-d H:i:s');
+        
+        // Cek apakah ada pengunjung dari hari sebelumnya yang masih MASUK
+        $checkSql = "SELECT COUNT(*) as total FROM visits 
+                     WHERE visit_date < :today AND status = 'MASUK'";
+        $check = getRow($checkSql, ['today' => $today]);
+        
+        // Jika tidak ada, skip (query ringan)
+        if (!$check || (int)$check['total'] === 0) {
+            return;
+        }
+        
+        // Ambil data untuk logging sebelum update
+        $detailSql = "SELECT id, nama, no_pek, nomor_identitas, visit_date FROM visits 
+                      WHERE visit_date < :today AND status = 'MASUK'";
+        $activeVisits = getAll($detailSql, ['today' => $today]);
+        
+        // Auto-checkout semua
+        $updateSql = "UPDATE visits 
+                      SET status = 'SELESAI', 
+                          jam_keluar = CONCAT(visit_date, ' 23:59:00'),
+                          is_flagged = TRUE,
+                          flag_note = 'Auto-checkout oleh sistem (tidak absen keluar)',
+                          updated_at = :updated_at
+                      WHERE visit_date < :today 
+                      AND status = 'MASUK'";
+        
+        $stmt = $pdo->prepare($updateSql);
+        $stmt->execute([
+            'updated_at' => $now,
+            'today' => $today
+        ]);
+        
+        $affected = $stmt->rowCount();
+        
+        // Log hasil
+        $logDir = __DIR__ . '/../logs';
+        if (!is_dir($logDir)) {
+            mkdir($logDir, 0755, true);
+        }
+        
+        $logFile = $logDir . '/auto_checkout.log';
+        $message = "[{$now}] Auto-checkout (page load): {$affected} pengunjung dari hari sebelumnya.\n";
+        foreach ($activeVisits as $visit) {
+            $noPek = $visit['no_pek'] ?? '-';
+            $message .= "  - {$visit['nama']} (NO.PEK: {$noPek}, Tanggal: {$visit['visit_date']})\n";
+        }
+        
+        file_put_contents($logFile, $message, FILE_APPEND);
+        
+    } catch (Exception $e) {
+        // Jangan sampai error auto-checkout mengganggu halaman utama
+        error_log("Auto-checkout error: " . $e->getMessage());
+    }
+}
+
+// Jalankan auto-checkout setiap kali functions.php di-load
+autoCheckoutPreviousDays();

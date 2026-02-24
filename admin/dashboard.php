@@ -38,13 +38,13 @@ $stats = getVisitStats($today);
                 <!-- Branding -->
                 <div class="flex items-center gap-4 text-center md:text-left">
                     <div class="bg-white p-2 rounded-lg shadow-sm border border-gray-100">
-                        <img src="https://res.cloudinary.com/drnnwysol/image/upload/v1770018633/logo_j5pwjf.png" 
+                        <img src="https://res.cloudinary.com/drnnwysol/image/upload/v1771404511/logo-pepc_vlsrf0.png" 
                              alt="Pertamina EP Cepu Logo" 
                              class="h-12 w-auto object-contain">
                     </div>
                     <div>
                         <h1 class="text-2xl font-bold text-gray-900 leading-tight">Dashboard Admin</h1>
-                        <p class="text-sm text-gray-600 font-medium">Sistem Buku Tamu Digital</p>
+                        <p class="text-sm text-gray-600 font-medium">PEPC Visitor Log System</p>
                     </div>
                 </div>
 

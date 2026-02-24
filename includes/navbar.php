@@ -15,7 +15,7 @@ if (!function_exists('isActive')) {
         <!-- Logo & Branding -->
         <a href="index.php" class="flex flex-col md:flex-row items-center gap-3 md:gap-4 text-center md:text-left group cursor-pointer hover:opacity-90 transition">
             <div class="bg-white p-2 rounded-lg shadow-sm border border-gray-100 group-hover:shadow-md transition">
-                <img src="https://res.cloudinary.com/drnnwysol/image/upload/v1770018633/logo_j5pwjf.png" 
+                <img src="https://res.cloudinary.com/drnnwysol/image/upload/v1771404511/logo-pepc_vlsrf0.png" 
                      alt="Pertamina EP Cepu Logo" 
                      class="h-12 w-auto object-contain">
             </div>

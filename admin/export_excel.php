@@ -98,14 +98,14 @@ header("Expires: 0");
     </style>
 </head>
 <body>
-    <div class="header">LAPORAN BUKU TAMU - <?php echo strtoupper(APP_NAME); ?></div>
+    <div class="header">LAPORAN VISITOR LOG - <?php echo strtoupper(APP_NAME); ?></div>
     <div class="sub-header">Periode: <?php echo $titlePeriod; ?></div>
     
     <table>
         <thead>
             <tr>
                 <th width="30">No</th>
-                <th width="100">Tanggal</th>
+                <th width="170">Tanggal</th>
                 <th width="150">Nama</th>
                 <th width="120">Asal Fungsi</th>
                 <th width="150">Alamat</th>
@@ -115,7 +115,7 @@ header("Expires: 0");
                 <th width="80">Jam Masuk</th>
                 <th width="80">Jam Keluar</th>
                 <th width="80">Status</th>
-                <th width="80">Keterangan</th>
+                <th width="90">Keterangan</th>
             </tr>
         </thead>
         <tbody>

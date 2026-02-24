@@ -77,7 +77,7 @@ $visits = getAll($query, $params);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Buku Tamu - <?php echo APP_NAME; ?></title>
+    <title>Data Visitor Log - <?php echo APP_NAME; ?></title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -99,12 +99,12 @@ $visits = getAll($query, $params);
                 <!-- Branding -->
                 <div class="flex items-center gap-4 text-center md:text-left">
                     <div class="bg-white p-2 rounded-lg shadow-sm border border-gray-100">
-                        <img src="https://res.cloudinary.com/drnnwysol/image/upload/v1770018633/logo_j5pwjf.png" 
+                        <img src="https://res.cloudinary.com/drnnwysol/image/upload/v1771404511/logo-pepc_vlsrf0.png" 
                              alt="Pertamina EP Cepu Logo" 
                              class="h-12 w-auto object-contain">
                     </div>
                     <div>
-                        <h1 class="text-2xl font-bold text-gray-900 leading-tight">Data Buku Tamu</h1>
+                        <h1 class="text-2xl font-bold text-gray-900 leading-tight">Data Visitor Log</h1>
                         <p class="text-sm text-gray-600 font-medium">Kelola dan monitor data kunjungan</p>
                     </div>
                 </div>

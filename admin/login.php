@@ -31,13 +31,13 @@ if (checkAuthAdmin()) {
         <div class="text-center">
             <a href="../index.php" class="inline-block group">
                 <div class="bg-white p-3 rounded-xl shadow-md border border-gray-100 inline-block mb-4 group-hover:scale-105 transition duration-300">
-                    <img src="https://res.cloudinary.com/drnnwysol/image/upload/v1770018633/logo_j5pwjf.png" 
+                    <img src="https://res.cloudinary.com/drnnwysol/image/upload/v1771404511/logo-pepc_vlsrf0.png" 
                          alt="Pertamina EP Cepu Logo" 
                          class="h-16 w-auto object-contain">
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900 tracking-tight">Login Admin</h2>
                 <p class="mt-2 text-sm text-gray-600">
-                    Sistem Buku Tamu & Manajemen Pengunjung
+                    Visitor Log & Management System
                 </p>
                 <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-red-500 mx-auto mt-4 rounded-full"></div>
             </a>
