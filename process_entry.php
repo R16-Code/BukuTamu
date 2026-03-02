@@ -53,7 +53,13 @@ try {
     // Check duplicate entry (same no_pek, same date, status MASUK)
     $duplicate = checkDuplicateEntry($noPek, $tanggal);
     if ($duplicate) {
-        jsonResponse(false, 'Anda sudah absen masuk hari ini dengan NO.PEK/NIK yang sama. Silakan absen keluar jika sudah selesai.');
+        jsonResponse(false, 'NO.PEK/NIK/SIM/PASPORT tersebut masih digunakan dan belum melakukan absen keluar. Silakan lakukan absen keluar terlebih dahulu sebelum menggunakan kembali.');
+    }
+    
+    // Check duplicate ID Card (same nomor_identitas, same date, status MASUK)
+    $duplicateIdCard = checkDuplicateIdCard($nomorIdentitas, $tanggal);
+    if ($duplicateIdCard) {
+        jsonResponse(false, 'NO. ID CARD tersebut masih digunakan dan belum melakukan absen keluar. Silakan gunakan NO. ID CARD lain atau lakukan absen keluar terlebih dahulu.');
     }
     
     // Save signature as file

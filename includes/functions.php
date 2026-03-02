@@ -1,7 +1,5 @@
 <?php
-// ===================================
 // HELPER FUNCTIONS
-// ===================================
 
 require_once __DIR__ . '/../config/database.php';
 
@@ -101,6 +99,26 @@ function checkDuplicateEntry($noPek, $date) {
     
     return getRow($sql, [
         'no_pek' => $noPek,
+        'date' => $date
+    ]);
+}
+
+/**
+ * Check if NO. ID CARD already has active entry today (belum checkout)
+ *
+ * @param string $nomorIdentitas NO. ID CARD
+ * @param string $date Date in Y-m-d format
+ * @return array|false Return row if exists, false if not
+ */
+function checkDuplicateIdCard($nomorIdentitas, $date) {
+    $sql = "SELECT * FROM visits 
+            WHERE nomor_identitas = :nomor_identitas 
+            AND visit_date = :date 
+            AND status = 'MASUK'
+            LIMIT 1";
+    
+    return getRow($sql, [
+        'nomor_identitas' => $nomorIdentitas,
         'date' => $date
     ]);
 }
